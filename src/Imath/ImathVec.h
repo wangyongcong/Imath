@@ -229,6 +229,38 @@ template <class T> class IMATH_EXPORT_TEMPLATE_TYPE Vec2
     /// Component-wise division
     IMATH_HOSTDEVICE constexpr Vec2 operator/ (T a) const IMATH_NOEXCEPT;
 
+    /// Component-wise AND
+    template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec2& operator&= (const Vec2 &v) IMATH_NOEXCEPT;
+
+    /// Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec2& operator&= (T a) IMATH_NOEXCEPT;
+
+    /// Component-wise AND
+    template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec2 operator& (const Vec2 &v) const IMATH_NOEXCEPT;
+
+    /// Component-wise AND
+    template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec2 operator& (T a) const IMATH_NOEXCEPT;
+
+    /// Component-wise OR
+    template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec2& operator|= (const Vec2 &v) IMATH_NOEXCEPT;
+
+    /// Component-wise OR
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec2& operator|= (T a) IMATH_NOEXCEPT;
+
+    /// Component-wise OR
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec2 operator| (const Vec2 &v) const IMATH_NOEXCEPT;
+
+    /// Component-wise OR
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec2 operator| (T a) const IMATH_NOEXCEPT;
+
     /// @}
 
     /// @{
@@ -501,6 +533,38 @@ template <class T> class IMATH_EXPORT_TEMPLATE_TYPE Vec3
     /// Component-wise division
     IMATH_HOSTDEVICE constexpr Vec3 operator/ (T a) const IMATH_NOEXCEPT;
 
+	// Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec3& operator&= (const Vec3 &v) IMATH_NOEXCEPT;
+
+    // Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec3& operator&= (T a) IMATH_NOEXCEPT;
+
+    // Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec3 operator& (const Vec3 &v) const IMATH_NOEXCEPT;
+
+	// Component-wise AND
+    template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec3 operator& (T a) const IMATH_NOEXCEPT;
+
+	// Component-wise OR
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec3& operator|= (const Vec3 &v) IMATH_NOEXCEPT;
+
+    // Component-wise OR
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec3& operator|= (T a) IMATH_NOEXCEPT;
+
+	// Component-wise OR
+    template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec3 operator| (const Vec3 &v) const IMATH_NOEXCEPT;
+
+    // Component-wise OR
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec3 operator| (T a) const IMATH_NOEXCEPT;
+
     /// @}
 
     /// @{
@@ -732,6 +796,38 @@ template <class T> class IMATH_EXPORT_TEMPLATE_TYPE Vec4
 
     /// Component-wise division
     IMATH_HOSTDEVICE constexpr Vec4 operator/ (T a) const IMATH_NOEXCEPT;
+
+	// Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec4& operator&= (const Vec4 &v) IMATH_NOEXCEPT;
+
+	// Component-wise AND
+    template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec4& operator&= (T a) IMATH_NOEXCEPT;
+
+    // Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec4 operator& (const Vec4 &v) const IMATH_NOEXCEPT;
+
+    // Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec4 operator& (T a) const IMATH_NOEXCEPT;
+
+	// Component-wise OR
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec4& operator|= (const Vec4 &v) IMATH_NOEXCEPT;
+
+    // Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE const Vec4& operator|= (T a) IMATH_NOEXCEPT;
+
+    // Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec4 operator| (const Vec4 &v) const IMATH_NOEXCEPT;
+
+    // Component-wise AND
+	template<typename = std::enable_if_t<std::is_integral<T>::value>>
+	IMATH_HOSTDEVICE constexpr Vec4 operator| (T a) const IMATH_NOEXCEPT;
 
     /// @}
 
@@ -1238,6 +1334,78 @@ Vec2<T>::operator/ (T a) const IMATH_NOEXCEPT
 }
 
 template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec2<T>&
+Vec2<T>::operator&= (const Vec2 &v) IMATH_NOEXCEPT
+{
+	x &= v.x;
+	y &= v.y;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec2<T>&
+Vec2<T>::operator&= (T a) IMATH_NOEXCEPT
+{
+	x &= a;
+	y &= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec2<T>
+Vec2<T>::operator& (const Vec2 &v) const IMATH_NOEXCEPT
+{
+	return{ x & v.x, y & v.y };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec2<T>
+Vec2<T>::operator& (T a) const IMATH_NOEXCEPT
+{
+	return{ x & a, y & a };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec2<T>&
+Vec2<T>::operator|= (const Vec2 &v) IMATH_NOEXCEPT
+{
+	x |= v.x;
+	y |= v.y;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec2<T>&
+Vec2<T>::operator|= (T a) IMATH_NOEXCEPT
+{
+	x |= a;
+	y |= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec2<T>
+Vec2<T>::operator| (const Vec2 &v) const IMATH_NOEXCEPT
+{
+	return{ x | v.x, y | v.y };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec2<T>
+Vec2<T>::operator| (T a) const IMATH_NOEXCEPT
+{
+	return{ x | a, y | a };
+}
+
+template <class T>
 IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline T
 Vec2<T>::lengthTiny() const IMATH_NOEXCEPT
 {
@@ -1698,6 +1866,82 @@ Vec3<T>::operator/ (T a) const IMATH_NOEXCEPT
 }
 
 template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec3<T>&
+Vec3<T>::operator&= (const Vec3 &v) IMATH_NOEXCEPT
+{
+	x &= v.x;
+	y &= v.y;
+	z &= v.z;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec3<T>&
+Vec3<T>::operator&= (T a) IMATH_NOEXCEPT
+{
+	x &= a;
+	y &= a;
+	z &= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec3<T>
+Vec3<T>::operator& (const Vec3 &v) const IMATH_NOEXCEPT
+{
+	return{ x & v.x, y & v.y, z & v.z };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec3<T>
+Vec3<T>::operator& (T a) const IMATH_NOEXCEPT
+{
+	return{ x & a, y & a, z & a };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec3<T>&
+Vec3<T>::operator|= (const Vec3 &v) IMATH_NOEXCEPT
+{
+	x |= v.x;
+	y |= v.y;
+	z |= v.z;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec3<T>&
+Vec3<T>::operator|= (T a) IMATH_NOEXCEPT
+{
+	x |= a;
+	y |= a;
+	z |= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec3<T>
+Vec3<T>::operator| (const Vec3 &v) const IMATH_NOEXCEPT
+{
+	return{ x | v.x, y | v.y, z | v.z };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec3<T>
+Vec3<T>::operator| (T a) const IMATH_NOEXCEPT
+{
+	return{ x | a, y | a, z | a };
+}
+
+template <class T>
 IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline T
 Vec3<T>::lengthTiny() const IMATH_NOEXCEPT
 {
@@ -2066,6 +2310,86 @@ IMATH_HOSTDEVICE constexpr inline Vec4<T>
 Vec4<T>::operator/ (T a) const IMATH_NOEXCEPT
 {
     return Vec4 (x / a, y / a, z / a, w / a);
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec4<T>&
+Vec4<T>::operator&= (const Vec4 &v) IMATH_NOEXCEPT
+{
+	x &= v.x;
+	y &= v.y;
+	z &= v.z;
+	w &= v.w;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec4<T>&
+Vec4<T>::operator&= (T a) IMATH_NOEXCEPT
+{
+	x &= a;
+	y &= a;
+	z &= a;
+	w &= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec4<T>
+Vec4<T>::operator& (const Vec4 &v) const IMATH_NOEXCEPT
+{
+	return{ x & v.x, y & v.y, z & v.z, w & v.w };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec4<T>
+Vec4<T>::operator& (T a) const IMATH_NOEXCEPT
+{
+	return{ x & a, y & a, z & a, w & a };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec4<T>&
+Vec4<T>::operator|= (const Vec4 &v) IMATH_NOEXCEPT
+{
+	x |= v.x;
+	y |= v.y;
+	z |= v.z;
+	w |= v.w;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE inline const Vec4<T>&
+Vec4<T>::operator|= (T a) IMATH_NOEXCEPT
+{
+	x |= a;
+	y |= a;
+	z |= a;
+	w |= a;
+	return *this;
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec4<T>
+Vec4<T>::operator| (const Vec4 &v) const IMATH_NOEXCEPT
+{
+	return{ x | v.x, y | v.y, z | v.z, w | v.w };
+}
+
+template <class T>
+template<typename>
+IMATH_HOSTDEVICE constexpr inline Vec4<T>
+Vec4<T>::operator| (T a) const IMATH_NOEXCEPT
+{
+	return{ x | a, y | a, z | a, w | a };
 }
 
 template <class T>

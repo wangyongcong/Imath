@@ -903,6 +903,63 @@ intersects (const Box<Vec3<T>>& box, const Line3<T>& ray) IMATH_NOEXCEPT
     return intersects (box, ray, ignored);
 }
 
+template<class T, class Point>
+IMATH_HOSTDEVICE void 
+bounding(Box< Vec2<T> > &box, const Point *p0, const Point *p1, const Point *p2) IMATH_NOEXCEPT
+{
+	float x, y;
+	x = p0->x;
+	if (x > p1->x)
+		x = p1->x;
+	if (x > p2->x)
+		x = p2->x;
+	y = p0->y;
+	if (y > p1->y)
+		y = p1->y;
+	if (y > p2->y)
+		y = p2->y;
+	box.min = {
+		int(std::floorf(x)),
+		int(std::floorf(y))
+	};
+	x = p0->x;
+	if (x < p1->x)
+		x = p1->x;
+	if (x < p2->x)
+		x = p2->x;
+	y = p0->y;
+	if (y < p1->y)
+		y = p1->y;
+	if (y < p2->y)
+		y = p2->y;
+	box.max = {
+		int(std::ceilf(x)),
+		int(std::ceilf(y))
+	};
+}
+
+
+template <class T>
+IMATH_HOSTDEVICE void 
+intersection(Box<T> &left, const Box<T> &other) IMATH_NOEXCEPT
+{
+	left.min.x = std::max(left.min.x, other.min.x);
+	left.min.y = std::max(left.min.y, other.min.y);
+	left.max.x = std::min(left.max.x, other.max.x);
+	left.max.y = std::min(left.max.y, other.max.y);
+}
+
+
+template <class T>
+IMATH_HOSTDEVICE void 
+intersection(Box<T> &ret, const Box<T> &left, const Box<T> &other) IMATH_NOEXCEPT
+{
+	ret.min.x = std::max(left.min.x, other.min.x);
+	ret.min.y = std::max(left.min.y, other.min.y);
+	ret.max.x = std::min(left.max.x, other.max.x);
+	ret.max.y = std::min(left.max.y, other.max.y);
+}
+
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif // INCLUDED_IMATHBOXALGO_H

@@ -860,6 +860,12 @@ template <class T> class IMATH_EXPORT_TEMPLATE_TYPE Matrix44
     /// Matrix-matrix multiplication
     IMATH_HOSTDEVICE IMATH_CONSTEXPR14 Matrix44 operator* (const Matrix44& v) const IMATH_NOEXCEPT;
 
+    /// Matrix-matrix component-wise OR
+    IMATH_HOSTDEVICE IMATH_CONSTEXPR14 const Matrix44& operator|= (const Matrix44 &v) IMATH_NOEXCEPT;
+
+    /// Matrix-matrix component-wise OR
+    IMATH_HOSTDEVICE IMATH_CONSTEXPR14 Matrix44 operator| (const Matrix44 &v) const IMATH_NOEXCEPT;
+
     /// Matrix-matrix multiplication: compute c = a * b
     IMATH_HOSTDEVICE
     static void multiply (const Matrix44& a,     // assumes that
@@ -3646,6 +3652,52 @@ Matrix44<T>::operator* (const Matrix44<T>& v) const IMATH_NOEXCEPT
 }
 
 template <class T>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 const Matrix44<T> &
+Matrix44<T>::operator|= (const Matrix44 &v) IMATH_NOEXCEPT
+{
+	x[0][0] |= v[0][0];
+	x[0][1] |= v[0][1];
+	x[0][2] |= v[0][2];
+	x[0][3] |= v[0][3];
+	x[1][0] |= v[1][0];
+	x[1][1] |= v[1][1];
+	x[1][2] |= v[1][2];
+	x[1][3] |= v[1][3];
+	x[2][0] |= v[2][0];
+	x[2][1] |= v[2][1];
+	x[2][2] |= v[2][2];
+	x[2][3] |= v[2][3];
+	x[3][0] |= v[3][0];
+	x[3][1] |= v[3][1];
+	x[3][2] |= v[3][2];
+	x[3][3] |= v[3][3];
+	
+	return *this;
+}
+
+template <class T>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 Matrix44<T>
+Matrix44<T>::operator| (const Matrix44 &v) const IMATH_NOEXCEPT
+{
+	return Matrix44 (x[0][0] | v[0][0],
+					 x[0][1] | v[0][1],
+					 x[0][2] | v[0][2],
+					 x[0][3] | v[0][3],
+					 x[1][0] | v[1][0],
+					 x[1][1] | v[1][1],
+					 x[1][2] | v[1][2],
+					 x[1][3] | v[1][3],
+					 x[2][0] | v[2][0],
+					 x[2][1] | v[2][1],
+					 x[2][2] | v[2][2],
+					 x[2][3] | v[2][3],
+					 x[3][0] | v[3][0],
+					 x[3][1] | v[3][1],
+					 x[3][2] | v[3][2],
+					 x[3][3] | v[3][3]);
+}
+
+template <class T>
 IMATH_HOSTDEVICE inline void
 Matrix44<T>::multiply (const Matrix44<T>& a, const Matrix44<T>& b, Matrix44<T>& c) IMATH_NOEXCEPT
 {
@@ -4784,6 +4836,29 @@ IMATH_HOSTDEVICE operator* (const Vec4<S>& v, const Matrix44<T>& m) IMATH_NOEXCE
     S w = S (v.x * m.x[0][3] + v.y * m.x[1][3] + v.z * m.x[2][3] + v.w * m.x[3][3]);
 
     return Vec4<S> (x, y, z, w);
+}
+
+template<typename S>
+IMATH_HOSTDEVICE inline Vec4<S> 
+IMATH_HOSTDEVICE operator * (const Matrix44<S> &m, const Vec4<S> &v) IMATH_NOEXCEPT
+{
+	S x = S(v.x * m[0][0] + v.y * m[0][1] + v.z * m[0][2] + v.w * m[0][3]);
+	S y = S(v.x * m[1][0] + v.y * m[1][1] + v.z * m[1][2] + v.w * m[1][3]);
+	S z = S(v.x * m[2][0] + v.y * m[2][1] + v.z * m[2][2] + v.w * m[2][3]);
+	S w = S(v.x * m[3][0] + v.y * m[3][1] + v.z * m[3][2] + v.w * m[3][3]);
+
+	return Vec4<S>(x, y, z, w);
+}
+
+template<typename S>
+IMATH_HOSTDEVICE inline Vec3<S> 
+IMATH_HOSTDEVICE operator * (const Matrix44<S> &m, const Vec3<S> &v) IMATH_NOEXCEPT
+{
+	S x = S(v.x * m[0][0] + v.y * m[0][1] + v.z * m[0][2] + m[0][3]);
+	S y = S(v.x * m[1][0] + v.y * m[1][1] + v.z * m[1][2] + m[1][3]);
+	S z = S(v.x * m[2][0] + v.y * m[2][1] + v.z * m[2][2] + m[2][3]);
+
+	return Vec3<S>(x, y, z);
 }
 
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT

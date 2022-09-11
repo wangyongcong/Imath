@@ -139,6 +139,9 @@ template <class T> class IMATH_EXPORT_TEMPLATE_TYPE Color4
     /// Construct from Color4
     IMATH_HOSTDEVICE IMATH_CONSTEXPR14 Color4 (const Color4& v) IMATH_NOEXCEPT; 
 
+    /// Construct from Color3
+    IMATH_HOSTDEVICE IMATH_CONSTEXPR14 Color4 (const Color3<T> &v) IMATH_NOEXCEPT;
+
     /// Construct from Color4
     template <class S> IMATH_HOSTDEVICE IMATH_CONSTEXPR14 Color4 (const Color4<S>& v) IMATH_NOEXCEPT; 
 
@@ -147,6 +150,9 @@ template <class T> class IMATH_EXPORT_TEMPLATE_TYPE Color4
 
     /// Assignment
     IMATH_HOSTDEVICE IMATH_CONSTEXPR14 const Color4& operator= (const Color4& v) IMATH_NOEXCEPT; 
+
+    /// Assignment
+    IMATH_HOSTDEVICE IMATH_CONSTEXPR14 const Color4& operator= (const Color3<T> &v) IMATH_NOEXCEPT;
 
     /// Component-wise value
     IMATH_HOSTDEVICE T& operator[] (int i) IMATH_NOEXCEPT; 
@@ -496,6 +502,15 @@ IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline Color4<T>::Color4 (const Color4& v) IM
 }
 
 template <class T>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline Color4<T>::Color4 (const Color3<T> &v) IMATH_NOEXCEPT
+{
+	r = v.x;
+	g = v.y;
+	b = v.z;
+	a = T(1);
+}
+
+template <class T>
 template <class S>
 IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline Color4<T>::Color4 (const Color4<S>& v) IMATH_NOEXCEPT
 {
@@ -514,6 +529,17 @@ Color4<T>::operator= (const Color4& v) IMATH_NOEXCEPT
     b = v.b;
     a = v.a;
     return *this;
+}
+
+template <class T>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline const Color4<T> &
+Color4<T>::operator= (const Color3<T> &v) IMATH_NOEXCEPT
+{
+	r = v.x;
+	g = v.y;
+	b = v.z;
+	a = T(1);
+	return *this;
 }
 
 template <class T>

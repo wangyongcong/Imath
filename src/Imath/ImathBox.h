@@ -113,6 +113,12 @@ template <class V> class IMATH_EXPORT_TEMPLATE_TYPE Box
     /// Return true if the given box is inside the box, false otherwise.
     IMATH_HOSTDEVICE IMATH_CONSTEXPR14 bool intersects (const Box<V>& box) const IMATH_NOEXCEPT;
 
+    /// Return true if the given point is inside the box, flase otherwise.
+    IMATH_HOSTDEVICE IMATH_CONSTEXPR14 bool inside(const Vec2<V> &point) const IMATH_NOEXCEPT;
+
+    /// Return true if the given point is inside the box, flase otherwise.
+    IMATH_HOSTDEVICE IMATH_CONSTEXPR14 bool inside(V x, V y) const IMATH_NOEXCEPT;
+
     /// Return the major axis of the box. The major axis is the dimension with
     /// the greatest difference between maximum and minimum.
     IMATH_HOSTDEVICE IMATH_CONSTEXPR14 unsigned int majorAxis() const IMATH_NOEXCEPT;
@@ -268,6 +274,22 @@ Box<V>::intersects (const Box<V>& box) const IMATH_NOEXCEPT
     }
 
     return true;
+}
+
+template<class V>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline bool 
+Box<V>::inside(const Vec2<V> &point) const IMATH_NOEXCEPT
+{
+	return (point.x >= min.x && point.y < max.x
+		&& point.y >= min.y && point.y < max.y);
+}
+
+template<class V>
+IMATH_HOSTDEVICE IMATH_CONSTEXPR14 inline bool 
+Box<V>::inside(V x, V y) const IMATH_NOEXCEPT
+{
+	return (x >= min.x && y < max.x
+		&& y >= min.y && y < max.y);
 }
 
 template <class V>

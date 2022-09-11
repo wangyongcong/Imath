@@ -91,6 +91,41 @@ closestVertex (const Vec& v0, const Vec& v1, const Vec& v2, const Vec& p) IMATH_
     return nearest;
 }
 
+template <class T>
+IMATH_CONSTEXPR14 inline Imath::Vec2<T>
+operator/ (T a, const Imath::Vec2<T>& v) IMATH_NOEXCEPT
+{
+	return Imath::Vec2<T> (a / v.x, a / v.y);
+}
+
+template <class T>
+IMATH_CONSTEXPR14 inline Imath::Vec3<T>
+operator/ (T a, const Imath::Vec3<T>& v) IMATH_NOEXCEPT
+{
+	return Imath::Vec3<T> (a / v.x, a / v.y, a / v.z);
+}
+
+template <class T>
+IMATH_CONSTEXPR14 inline Imath::Vec4<T>
+operator/ (T a, const Imath::Vec4<T>& v) IMATH_NOEXCEPT
+{
+	return Imath::Vec4<T> (a / v.x, a / v.y, a / v.z, a / v.w);
+}
+
+template<class T>
+IMATH_CONSTEXPR14 inline T 
+operator ^ (const Vec3<T> &v1, const Vec4<T> &v2) IMATH_NOEXCEPT
+{
+	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+}
+
+template<class T>
+IMATH_CONSTEXPR14 inline T
+operator ^ (const Vec4<T> &v1, const Vec3<T> &v2) IMATH_NOEXCEPT
+{
+	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+}
+
 IMATH_INTERNAL_NAMESPACE_HEADER_EXIT
 
 #endif // INCLUDED_IMATHVECALGO_H
